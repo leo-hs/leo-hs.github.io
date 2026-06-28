@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>This is Haesung Lee</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta property="og:title" content="SAP: Sprint Monitoring Dashboard">
+		<meta property="og:url" content="https://leo-hs.github.io/sap.html">
+		<meta property="og:type" content="website">
+		<meta property="og:image" content="https://leo-hs.github.io/images/meta_sap.JPG">
+		<meta property="og:description" content="Portfolio made with ❤️">
+		<link rel="stylesheet" href="https://leo-hs.github.io/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="https://leo-hs.github.io/assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a class="logo">Data Modeling</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="index.html">Back to Home </a></li>
+							<li><a href="index.html#project">More projects </a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/haesung-lee/" class="icon brands alt fa-linkedin" target="_blank"><span class="label">Linkedin</span></a></li>
+							<li><a href="https://github.com/Leo-hs-lee" class="icon brands alt fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+                                <header class="major">
+                                    <h1>Breast cancer prediction</h1>
+											<a class="image main"><img src="images/pic05.jpg" alt="" /></a>
+										</a>
+                                </header>
+
+								<!-- Text stuff -->
+									                                
+									<h2>✅ About The Project</h2>
+
+									<p>Breast cancer is one of the most common types of cancer affecting women worldwide. Early detection is critical in improving the chances of survival, and as such, there is a need for accurate and reliable tools for breast cancer prediction. <mark>In this data analysis project, we aim to build a model that can predict the likelihood of breast cancer based on patient data.</mark></p>
+									<p>Using a dataset containing information on various attributes such as age, family history, and medical history, <b>we will explore various machine learning algorithms such as KNN, Logistic Regression and decision tree</b> to develop a model that can accurately predict the presence of breast cancer. Our analysis will include data preprocessing, feature selection, and model evaluation, with a focus on achieving high accuracy, precision, and recall.</p>
+									<h3>Project overview</h3>
+									<ul>
+										<li>Project Data & Process</li>
+										<li>Exploratory Data Analysis</li>
+                                        <li>KNN</li>
+                                        <li>Logistic Regression</li>
+										<li>Decision Tree</li>
+										<li>Conclusion</li>
+									</ul>
+									<hr />
+
+									
+									<h2>📃 Project Data & Process</h2>
+									<div><a class="image fit"><img src="images/bc_01.jpg" alt="" /></a></div>
+									<p><b>Breast Cancer Wisconsin (Diagnostic) Data Set</b> provided by the
+										<b>UCI Machine Learning Repository</b> to inspect if data analysis can provide valuable indication of
+										this cancer. The dataset was already cleaned and contains 569 rows and 32 attributes.</p>
+									
+									<p>90% of the data to train and
+										validate our models. The remaining 10% will serve as the outside data the models have never
+										seen before. Since our dataset is fairly small with only 569 observations, we separate the dataset
+										this way to test the goodness of our models.
+										</p>
+										<div><a class="image fit"><img src="images/bc_03.jpg" alt="" /></a></div>
+									<p>We will be taking following processes for each models:</p>
+									<ul>
+										<li>Feature Selection</li>
+										<li>Resample the dataset</li>
+                                        <li>Resample</li>
+                                        <li>Confusion Matrix</li>
+										<li>Train the model</li>
+										<li>Test Model</li>
+									</ul>
+									<hr />
+									<h2>🧐 Explatory Data Analysis</h2>
+
+									<div><a class="image fit"><img src="images/bc_02.jpg" alt="" /></a></div>
+									<p>The total value of Malignant count is 212 which makes up 37.258% of the total diagnosis
+										count and the Benign count is 357 which makes up 62.741% of the total diagnosis count.</p>
+									<p>
+										The four correlations we found to be highly correlated are: radius_mean vs
+										perimeter_mean, radius_mean vs area_mean, perimeter_mean vs area_mean, and radius_worst
+										vs perimeter_worst. 
+									</p>	
+									<hr />
+									<h2>K-Nearest Neighbor (KNN)</h2>
+
+									<div class="box alt">
+										<div class="row gtr-50 gtr-uniform">
+											<div class="col-6"><a class="image fit"><img src="images/bc_04.jpg" alt="" /></a>• KNN is the most commonly used algorithm
+												for finding patterns in classification and regression problems</div>
+											<div class="col-6"><a class="image fit"><img src="images/bc_05.jpg" alt="" /></a>• Running Feature selection with three different distances & over sampling </div>
+											<div class="col-6"><a class="image fit"><img src="images/bc_06.jpg" alt="" /></a>• Result of three different feature selection methods of KNN</div>
+											<div class="col-6"><a class="image fit"><img src="images/bc_07.jpg" alt="" /></a>• Euclidean Distance showed lowest Type I and Type II Error</div>
+										</div>
+									</div>
+									<hr />
+									<h2>Logistic Regression</h2>
+
+									<div class="box alt">
+										<div class="row gtr-50 gtr-uniform">
+											<div class="col-6"><a class="image fit"><img src="images/bc_08.jpg" alt="" /></a>• Logistic regression is powerful methods to identify significant feature influence on the result</div>
+											<div class="col-6"><a class="image fit"><img src="images/bc_09.jpg" alt="" /></a>• Regularization with L1 Penalty to avoid overfitting issue </div>
+											<div class="col-6"><a class="image fit"><img src="images/bc_10.jpg" alt="" /></a>• SMOTE resampling adjust the imbalace of data by generating synthetic samples</div>
+											<div class="col-6"><a class="image fit"><img src="images/bc_11.jpg" alt="" /></a>• The model performs best with the L1 Penalty and resampling</div>
+										</div>
+									</div>
+									<hr />
+									<h2>Decision Tree</h2>
+									<div class="box alt">
+										<div class="row gtr-50 gtr-uniform">
+											<div class="col-6"><a class="image fit"><img src="images/bc_12.jpg" alt="" /></a>• Decision tree is handy method since it doesn't require standardization or feature selection</div>
+											<div class="col-6"><a class="image fit"><img src="images/bc_13.jpg" alt="" /></a>• Undersampling method to balance the dataset </div>
+											<div class="col-6"><a class="image fit"><img src="images/bc_14.jpg" alt="" /></a>• Decision tree's max depths and features should be considered to avoid overfitting</div>
+											<div class="col-6"><a class="image fit"><img src="images/bc_15.jpg" alt="" /></a>• Basic Desicion tree performed the best. This shows how powerfully automated tree models are</div>
+										</div>
+									</div>
+									<hr />
+									<h2>Conclusion</h2>
+									<div><a class="image fit"><img src="images/bc_16.jpg" alt="" /></a></div>
+									<ul>
+										<li>Logistic regression with L1 penalty performed best</li>
+										<li>Many features were highly correlated, therefore no need to include all the features</li>
+                                        <li>Feature selection is an important steps to get a better perfoming modeling</li>
+                                        <li>Domain knowledge is essential in calculating the expected cost, unique to the problem we try to solve</li>
+									</ul>
+									<hr />
+									<ul class="actions special">
+										<li><a href="#header" class="button scrolly">Back to top</a></li>
+										<li><a href="index.html#project" class="button">More Projects</a></li>
+									</ul>
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section>
+							<p>All Projects built with ❤️<br />
+								Please feel free to reach out to me <a href="https://www.linkedin.com/in/haesung-lee/">@Linkedin</a> or <a href="https://github.com/Leo-hs-lee">@GitHub</a><br />
+						   <a href="mailto:webmaster@example.com">📧 haesung.lee.810@gmail.com</a></p>
+						</section>
+						<section class="split contact">
+							<section>
+								<h3>Social</h3>
+								<ul class="icons alt">
+									<li><a href="#" class="icon brands alt fa-linkedin"><span class="label">Linkedin</span></a></li>
+									<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+						</section>
+					</footer>
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; haesung Lee</li><li>Have a fabulous day :)</li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

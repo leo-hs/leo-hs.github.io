@@ -1,0 +1,262 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>This is Haesung Lee</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta property="og:title" content=" YouTube Channel Monitor">
+		<meta property="og:url" content="https://leo-hs.github.io/">
+		<meta property="og:type" content="website">
+		<meta property="og:image" content="https://leo-hs.github.io/images/meta_youtube.JPG">
+		<meta property="og:description" content="Portfolio made with ❤️">
+		<link rel="stylesheet" href="https://leo-hs.github.io/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="https://leo-hs.github.io/assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo">Data Engineering Project</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="index.html">Back to Home </a></li>
+							<li><a href="index.html#project">More projects </a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/haesung-lee/" class="icon brands alt fa-linkedin" target="_blank"><span class="label">Linkedin</span></a></li>
+							<li><a href="https://github.com/Leo-hs-lee" class="icon brands alt fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+									<h1>Youtube Channel Monitoring System</h1>
+								</header>
+
+								<!-- Text stuff -->
+									
+									<Br />
+									<h2>🎞️ About The Project</h2>
+									<p>
+										YouTube analytics are essential for businesses partnering with channels to promote their products. However, without access to a specific channel's analytics information, assessing performance becomes challenging.</p>
+									<P>The <b>YouTube Channel Performance Monitoring system</b> can <mark>identify channels with higher performance in their views counts, engagement rate and upload frequency.</mark></P>
+									<p>This Youtube channel monitoring system runs on the <b><a href="https://aws.amazon.com/lambda/">AWS Lambda</a></b> serverless framework.<br/>
+										Once a day, the monitor logs youtube channel statistics such as subscriber count, video count, view count, etc.</p>
+									<h4>Built with</h4>
+									<ul>
+										<li>Python 3.8</li>
+										<li>YouTube API V3</li>
+										<li>AWS Lambda</li>
+										<li>AWS RDS</li>
+										<li>MySQL Server</li>										
+									</ul>
+									<h4 class="icon brands alt fa-github"> Project Repository</h4>
+									<br\>
+									<a href="https://github.com/Leo-hs-lee/youtube_analytics" class="button" target="_blank">GitHub Repository</a>
+									<hr />
+									<h2>📈 Result</h2>
+									<blockquote><b>We are able to identify high-performing channels among listed channels.</b></blockquote>
+									<a href="nirvana.html" class="image main"><img src="images/yt_a01.png" alt="" /></a>
+									<a href="nirvana.html" class="image main"><img src="images/yt_a02.png" alt="" /></a>
+									<blockquote><b>Also, we can depict the viewership trend of high-performing channels.</b></blockquote>
+									<a href="nirvana.html" class="image main"><img src="images/yt_a03.png" alt="" /></a>
+									<hr>
+									<h2>💻 System Structure & process</h2>
+									<a href="nirvana.html" class="image main"><img src="images/yt_a04.png" alt="" /></a>
+									<ol>
+										<li>Input the list of Youtube channel names and channel IDs in the database <b>(AWS RDS-MySQL)</b></li>
+										<li>Request corresponding youtube channel statistics from <b>Youtube Data API v3</b></li>
+										<li>Store the Youtube channel information in the database automatically, once a day, using <b>AWS Lambda</b> serverless framework</li>
+										<li>Data manipulation and visualization <b>@Jupiter Notebook</b></li>
+									</ol>
+									
+									<h3>Prerequisites</h3>
+									<div class="box">
+										<pre text-align: left>
+											pip install google-api-python-client
+											pip install pandas
+											pip install pymysql
+											pip install sqlalchemy
+											pip install boto3
+										</pre>
+									</div>
+									<MARK><B>MUST INPUT YOUR OWN Youtube API key & Database credentials</B></MARK>
+									<div class="box">
+										<pre text-align: left>
+											api_key = 'Your API Key'
+											hostname="Host Address"
+											dbname="Database"
+											uname="User Name"
+											pwd="Your Password"
+										</pre>
+									</div>
+									<hr>
+
+									<h2>📊 Data</h2>
+									<h3>1. Input Data</h3>
+									<div style="overflow:auto;">
+										<table>
+										  <tr>
+											<th>Channel Name</th>
+											<th>Channel ID</th>
+										  </tr>
+										  <tr>
+											<td>Example Channel</td>
+											<td>UCK9M3uZMNjbqCI3O80-eF1k</td>
+										  </tr>
+										  <tr>
+											<td>...</td>
+											<td>...</td>
+										  </tr>									
+										</table>
+									</div>
+									
+									<h3>2. Output Data</h3>
+									<div style="overflow:auto;">
+										<table>
+										  <tr>
+											<th>channel_name</th>
+											<th>published_date</th>
+											<th>subscribers</th>
+											<th>views</th>
+											<th>total_videos</th>
+											<th>playlist_id</th>
+											<th>retrieved_date</th>
+										  </tr>
+										  <tr>
+											<td>Example Channel</td>
+											<td>2015-12-27T21:31:03Z</td>
+											<td>1690000</td>
+											<td>680087428</td>
+											<td>185</td>
+											<td>UUJCx8aQrdx_ueXPmxTD2odQ</td>
+											<td>2022/09/15</td>
+										  </tr>
+										  <tr>
+											<td>...</td>
+											<td>...</td>
+											<td>...</td>
+											<td>...</td>
+											<td>...</td>
+											<td>...</td>
+											<td>...</td>
+										  </tr>									
+										</table>
+									</div>
+									<br/>
+									<b>published_date:</b> The date channel was published<br/>
+									<b>subscribers:</b> Total subscriber count of the channel (Count in 1000)<br/>
+									<b>views:</b> Total view count of public viddeos in the channel (Decreases if video is unlisted)<br/>
+									<b>total_video:</b> Total number of public videos in the channel<br/>
+									<b>playlist_id:</b> Channel's playlist ID for further analysis<br/>
+									<b>retrieved_date:</b> The the data was retrieved<br/>
+									<br/>
+									<h3>3. Data Manipulation</h3>
+									<div style="overflow:auto;">
+										<table>
+										  <tr>
+											<th>channel_name</th>
+											<th>sub_diff</th>
+											<th>view_diff</th>
+											<th>upload_diff</th>
+											<th>viewperupload</th>
+											<th>sub_gain</th>
+											<th>veiw_gain</th>
+											<th>videoloads</th>
+										  </tr>
+										  <tr>
+											<td>Example Channel</td>
+											<td>2000</td>
+											<td>310902</td>
+											<td>4</td>
+											<td>777025.5</td>
+											<td>1000</td>
+											<td>42407</td>
+											<td>1</td>
+										  </tr>
+										  <tr>
+											<td>...</td>
+											<td>...</td>
+											<td>...</td>
+											<td>...</td>
+											<td>...</td>
+											<td>...</td>
+											<td>...</td>
+											<td>...</td>
+										  </tr>									
+										</table>
+									</div>
+									<br/>
+									<b>sub_diff:</b> How much subscriber has increased overtime (Count in 1000)<br/>
+									<b>view_diff:</b> How much view has increased overtime<br/>
+									<b>upload_diff:</b> How many video was uploaded (or unlisted) overtime<br/>
+									<b>viewperupload:</b> Mean of view count affected per uploads, overtime: (view_diff/upload_diff)<br/>
+									<b>sub_gain:</b> Subscriber gain to the day before<br/>
+									<b>view_gain:</b> View gain to the day before<br/>
+									<br/>
+
+									<h3>4. Evaluation</h3>
+									<b>What we want to know:</b>  We want to know how much one video worth.<br/>
+									<b>How to evaluate:</b> How much view has increased overtime<br/>
+									<b>Evaluation index:</b> How many video was uploaded (or unlisted) overtime<br/>
+									<b>Parameter Estimator:</b> Mean of view count affected per uploads, overtime: (view_diff/upload_diff)<br/>
+
+								<hr>
+								<h2>🚀 What's Next?</h2>
+								<li>Conduct deeper channel analysis of top 3% youtube channels to identify which theme/concept of video is best performing</li>
+								<li>Run the system with +1000 samples to develop more precise prediction model for well-performing youtube channels.</li>
+								<br/>
+																<hr />
+								<ul class="actions special">
+									<li><a href="#header" class="button scrolly">Back to top</a></li>
+									<li><a href="index.html#project" class="button">More Projects</a></li>
+								</ul>
+							</section>
+					</div>
+
+				<!-- Footer -->
+				<footer id="footer">
+					<section>
+						<p>All Projects built with ❤️<br />
+							Please feel free to reach out to me <a href="https://www.linkedin.com/in/haesung-lee/">@Linkedin</a> or <a href="https://github.com/Leo-hs-lee">@GitHub</a><br />
+					   <a href="mailto:webmaster@example.com">📧 haesung.lee.810@gmail.com</a></p>
+					</section>
+					<section class="split contact">
+						<section>
+							<h3>Social</h3>
+							<ul class="icons alt">
+								<li><a href="https://www.linkedin.com/in/haesung-lee/" class="icon brands alt fa-linkedin" target="_blank"><span class="label">Linkedin</span></a></li>
+								<li><a href="https://github.com/Leo-hs-lee" class="icon brands alt fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+							</ul>
+						</section>
+					</section>
+				</footer>
+
+			<!-- Copyright -->
+				<div id="copyright">
+					<ul><li>&copy; haesung Lee</li><li>Have a fabulous day :)</li></ul>
+				</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
