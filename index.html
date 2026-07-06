@@ -1,388 +1,1068 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script>document.documentElement.classList.add('js');</script>
-  <title>Haesung Lee, The Builder's Brief</title>
-  <meta name="description" content="Haesung Lee, business-intelligence analyst at the LA Kings and independent builder. I turn data and AI into things people gather around." />
-  <meta property="og:title" content="Haesung Lee, The Builder's Brief" />
-  <meta property="og:description" content="I turn data and AI into things people gather around." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500;1,6..72,600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/site.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Haesung Lee · Data, Product, Community</title>
+<meta name="description" content="Haesung Lee builds things people gather around. Data analyst, product builder, community maker. Sr. BI Analyst at AEG / LA Kings.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root{
+  --ink:#0a0a0a;
+  --ink-soft:#3f3f46;
+  --gray:#71717a;
+  --gray-light:#a1a1aa;
+  --line:#e4e4e7;
+  --line-soft:#f0f0f2;
+  --bg:#ffffff;
+  --bg-tint:#fafafa;
+  --accent:#D4693B;
+  --accent-text:#B5532A;
+  --display:'Inter Tight',system-ui,sans-serif;
+  --body:'Inter',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --max:1120px;
+  --pad:clamp(20px,5vw,48px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body);
+  color:var(--ink);
+  background:var(--bg);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--accent);color:var(--bg)}
+a{color:inherit;text-decoration:none}
+img,video{max-width:100%;display:block}
+
+/* ============================================================
+   PRIMITIVES
+   ============================================================ */
+.wrap{max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+.label{
+  font-family:var(--mono);font-size:12px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--gray);
+  display:flex;align-items:center;gap:12px;margin-bottom:28px;
+}
+.label::after{content:'';flex:1;height:1px;background:var(--line)}
+section{padding:clamp(72px,10vw,128px) 0;border-top:1px solid var(--line)}
+h2{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(28px,4vw,44px);line-height:1.12;
+  letter-spacing:-.02em;max-width:18ch;
+}
+.lede{font-size:clamp(16px,1.6vw,19px);color:var(--ink-soft);max-width:58ch;margin-top:20px}
+.lede strong{color:var(--ink);font-weight:600}
+
+/* Placeholder blocks: swap src/content, delete .ph class when real asset lands */
+.ph{
+  background:var(--bg-tint);
+  border:1px dashed var(--gray-light);
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:24px;
+}
+.ph span{font-family:var(--mono);font-size:11px;color:var(--gray);line-height:1.7;letter-spacing:.03em}
+
+/* Scroll reveal */
+.rv{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(255,255,255,.86);backdrop-filter:blur(12px);
+  border-bottom:1px solid transparent;transition:border-color .3s;
+}
+nav.scrolled{border-bottom-color:var(--line)}
+.nav-in{
+  max-width:var(--max);margin:0 auto;padding:18px var(--pad);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.nav-name{font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:-.01em}
+.nav-links{display:flex;gap:28px}
+.nav-links a{
+  font-family:var(--mono);font-size:12px;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--gray);transition:color .2s;
+}
+.nav-links a:hover,.nav-links a:focus-visible{color:var(--ink)}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+@media(max-width:640px){.nav-links{gap:18px}.nav-links a:nth-child(2){display:none}}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{padding:200px 0 110px;border-top:none}
+.hero-eyebrow{
+  font-family:var(--mono);font-size:12px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--gray);margin-bottom:32px;
+  display:flex;gap:24px;flex-wrap:wrap;
+}
+.hero h1{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(38px,6.5vw,78px);line-height:1.06;
+  letter-spacing:-.03em;max-width:16ch;
+}
+.hero-sub{
+  margin-top:32px;font-size:clamp(16px,1.7vw,19px);
+  color:var(--ink-soft);max-width:52ch;
+}
+.hero-sub strong{color:var(--ink);font-weight:600}
+.hero-cta{margin-top:44px;display:flex;gap:14px;flex-wrap:wrap}
+.btn{
+  font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;
+  padding:13px 22px;border:1px solid var(--ink);transition:all .2s;
+}
+.btn.solid{background:var(--ink);color:var(--bg)}
+.btn.solid:hover{background:var(--ink-soft);border-color:var(--ink-soft)}
+.btn.ghost{color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--bg)}
+.hero-grid{
+  display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
+  gap:clamp(24px,4vw,56px);align-items:center;
+}
+.ascii{
+  font-family:var(--mono);
+  font-size:clamp(4.6px,.6vw,6.4px);
+  line-height:1.25;letter-spacing:0;
+  color:var(--ink-soft);white-space:pre;margin:0;
+  user-select:none;
+}
+@media(max-width:880px){
+  .hero-grid{grid-template-columns:1fr}
+  .ascii{margin-top:40px;font-size:5px;line-height:1.22;justify-self:start}
+}
+.hero-index{
+  margin-top:96px;border-top:1px solid var(--line);
+  display:grid;grid-template-columns:repeat(5,1fr);
+}
+@media(max-width:980px){.hero-index{grid-template-columns:repeat(2,1fr)}}
+.hero-index a{
+  padding:22px 20px 22px 0;border-bottom:1px solid var(--line);
+  display:flex;flex-direction:column;gap:6px;transition:padding-left .25s;
+}
+.hero-index a:hover{padding-left:10px}
+.hi-num{font-family:var(--mono);font-size:11px;color:var(--gray-light)}
+.hi-title{font-family:var(--display);font-weight:600;font-size:16px;letter-spacing:-.01em}
+.hi-desc{font-size:13px;color:var(--gray)}
+@media(max-width:760px){.hero-index{grid-template-columns:1fr}.hero{padding-top:150px}}
+
+/* ============================================================
+   K-TOWN: featured story + press index
+   ============================================================ */
+.kt-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,72px);
+  margin-top:56px;align-items:start;
+}
+@media(max-width:880px){.kt-grid{grid-template-columns:1fr}}
+.kt-feature{border:1px solid var(--line)}
+.kt-photo{aspect-ratio:1290/1108;position:relative}
+.kt-photo .ph{position:absolute;inset:0}
+.kt-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%}
+.press-logos{margin-bottom:20px}
+.press-logos img{width:100%;height:auto}
+.kt-caption{padding:24px 24px 28px;border-top:1px solid var(--line)}
+.kt-caption .outlet{
+  font-family:var(--mono);font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--gray);margin-bottom:10px;display:block;
+}
+.kt-caption h3{
+  font-family:var(--display);font-weight:600;font-size:20px;
+  line-height:1.3;letter-spacing:-.015em;
+}
+.kt-caption p{font-size:14px;color:var(--gray);margin-top:10px}
+
+/* Press index: the signature element */
+.press-head{
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding-bottom:14px;border-bottom:1px solid var(--ink);
+}
+.press-head .mono{color:var(--ink)}
+.press-head .count{color:var(--gray)}
+.press-row{display:block;margin-top:8px;transition:transform .25s}
+.press-row:hover{transform:translateX(6px)}
+.press-row img{width:100%;height:auto}
+.kt-stats{
+  margin-top:64px;display:grid;grid-template-columns:repeat(3,1fr);
+  border-top:1px solid var(--line);
+}
+.kt-stat{padding:28px 24px 28px 0;border-bottom:1px solid var(--line)}
+.kt-stat .v{font-family:var(--display);font-weight:600;font-size:clamp(24px,3vw,34px);letter-spacing:-.02em;color:var(--accent-text)}
+.kt-stat .k{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--gray);margin-top:6px}
+@media(max-width:640px){.kt-stats{grid-template-columns:1fr}}
+
+/* ============================================================
+   GRU
+   ============================================================ */
+.gru-video{margin-top:56px;aspect-ratio:16/9;position:relative;border:1px solid var(--line)}
+.gru-video .ph{position:absolute;inset:0}
+.gru-video iframe,.gru-video video{position:absolute;inset:0;width:100%;height:100%;border:0}
+.pipeline{
+  margin-top:56px;display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  border:1px solid var(--line);
+}
+.pipe-step{padding:28px 26px 32px;border-right:1px solid var(--line);position:relative}
+.pipe-step:last-child{border-right:none}
+.pipe-step .num{font-family:var(--mono);font-size:11px;color:var(--gray-light);letter-spacing:.05em}
+.pipe-step h4{font-family:var(--display);font-weight:600;font-size:17px;margin-top:14px;letter-spacing:-.01em}
+.pipe-step p{font-size:14px;color:var(--gray);margin-top:8px;line-height:1.55}
+.pipe-step::after{
+  content:'→';position:absolute;right:-9px;top:32px;
+  font-family:var(--mono);color:var(--gray-light);background:var(--bg);
+  padding:2px 0;font-size:13px;z-index:2;
+}
+.pipe-step:last-child::after{display:none}
+@media(max-width:760px){
+  .pipeline{grid-template-columns:1fr}
+  .pipe-step{border-right:none;border-bottom:1px solid var(--line)}
+  .pipe-step:last-child{border-bottom:none}
+  .pipe-step::after{content:'↓';right:auto;left:26px;top:auto;bottom:-11px}
+}
+.fact-chips{margin-top:36px;display:flex;flex-wrap:wrap;gap:10px}
+.chip{
+  font-family:var(--mono);font-size:11px;letter-spacing:.04em;
+  padding:8px 14px;border:1px solid var(--line);color:var(--ink-soft);
+}
+.tlink{display:inline-block;margin-top:24px;font-family:var(--mono);font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent-text)}
+.tlink .arrow{display:inline-block;transition:transform .25s}
+.tlink:hover .arrow{transform:translateX(4px)}
+.patent{margin-top:56px;border:1px solid var(--line)}
+.patent-txt{padding:32px 34px 4px;max-width:74ch}
+.patent-txt h3{font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:-.015em}
+.patent-txt p{font-size:14.5px;color:var(--gray);margin-top:10px;line-height:1.6}
+.patent-txt .tlink{margin-top:16px}
+.patent-figs{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding:28px 34px 38px}
+.patent-figs img{width:100%;aspect-ratio:1/1;object-fit:contain}
+@media(max-width:640px){.patent-figs{grid-template-columns:repeat(2,1fr)}}
+
+/* ============================================================
+   OCTOMATIC: signal flow
+   ============================================================ */
+.signal-flow{margin-top:56px;border:1px solid var(--line);padding:clamp(28px,4vw,52px);overflow-x:auto}
+.signal-flow svg{width:100%;height:auto;min-width:640px;display:block}
+.svg-mono{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.04em;text-transform:uppercase}
+.svg-title{font-family:'Inter Tight',sans-serif;font-weight:600;font-size:14px;letter-spacing:-.01em}
+.svg-small{font-family:'Inter',sans-serif;font-size:11.5px}
+.signal-video{margin-top:56px;position:relative;aspect-ratio:1788/1080;border:1px solid var(--line);background:var(--bg-tint)}
+.signal-video video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.flow-title{margin-top:72px;font-family:var(--display);font-weight:600;font-size:clamp(20px,2.4vw,26px);letter-spacing:-.015em}
+.flow-title+.signal-flow{margin-top:24px}
+
+/* ============================================================
+   HESSE
+   ============================================================ */
+.hesse-grid{margin-top:56px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,3vw,40px);align-items:start}
+@media(max-width:880px){.hesse-grid{grid-template-columns:1fr}}
+.hesse-video{position:relative;aspect-ratio:864/496;border:1px solid var(--line);background:var(--bg-tint)}
+.hesse-video video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hesse-flow{border:1px solid var(--line);padding:clamp(18px,2.5vw,28px)}
+.hesse-flow svg{width:100%;height:auto;display:block}
+.media-cap{margin-top:12px;font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--gray)}
+
+/* ============================================================
+   ANALYTICS
+   ============================================================ */
+.an-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,56px);margin-top:56px;
+}
+@media(max-width:880px){.an-grid{grid-template-columns:1fr}}
+.an-card{border:1px solid var(--line)}
+.an-card .viz{padding:clamp(20px,3vw,36px);border-bottom:1px solid var(--line)}
+.an-card .viz img{width:100%;height:auto}
+.an-card svg{width:100%;height:auto;display:block}
+.an-card .txt{padding:26px 28px 32px}
+.an-card .txt h3{font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:-.015em}
+.an-card .txt p{font-size:14.5px;color:var(--gray);margin-top:10px;line-height:1.6}
+.an-card .txt .res{
+  margin-top:18px;padding-top:16px;border-top:1px solid var(--line-soft);
+  font-family:var(--mono);font-size:12px;letter-spacing:.03em;color:var(--accent-text);
+}
+
+/* ============================================================
+   ARCHIVE
+   ============================================================ */
+.arch{margin-top:48px;border-top:1px solid var(--ink)}
+.arch details{border-bottom:1px solid var(--line)}
+.arch summary{
+  list-style:none;cursor:pointer;padding:22px 0;
+  display:grid;grid-template-columns:150px 1fr auto;gap:20px;align-items:baseline;
+  transition:padding-left .25s;
+}
+.arch summary::-webkit-details-marker{display:none}
+.arch summary:hover{padding-left:12px}
+.arch .a-cat{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--gray)}
+.arch .a-title{font-family:var(--display);font-weight:600;font-size:17px;letter-spacing:-.01em}
+.arch .a-plus{font-family:var(--mono);font-size:14px;color:var(--gray-light);transition:transform .3s}
+.arch details[open] .a-plus{transform:rotate(45deg)}
+.arch .a-body{padding:0 0 26px;max-width:62ch;color:var(--ink-soft);font-size:14.5px}
+.arch .a-body a{border-bottom:1px solid var(--gray-light);transition:border-color .2s}
+.arch .a-body a:hover{border-color:var(--ink)}
+@media(max-width:640px){
+  .arch summary{grid-template-columns:1fr auto}
+  .arch .a-cat{grid-column:1/-1}
+}
+
+/* ============================================================
+   ABOUT + CONTACT
+   ============================================================ */
+.about-grid{
+  display:grid;grid-template-columns:340px 1fr;gap:clamp(32px,5vw,72px);
+  margin-top:56px;align-items:start;
+}
+@media(max-width:820px){.about-grid{grid-template-columns:1fr;max-width:480px}}
+.about-photo{aspect-ratio:4/5;position:relative;border:1px solid var(--line)}
+.about-photo .ph{position:absolute;inset:0}
+.now-card{border:1px solid var(--line)}
+.nc-head{padding:18px 22px;border-bottom:1px solid var(--ink);font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
+.nc-head .dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.now-row{padding:15px 22px;border-bottom:1px solid var(--line-soft);display:flex;flex-direction:column;gap:3px}
+.now-row:last-child{border-bottom:none}
+.now-row .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--gray)}
+.now-row .v{font-size:14.5px;font-weight:500;letter-spacing:-.005em}
+.about-txt p{color:var(--ink-soft);max-width:56ch}
+.about-txt p+p{margin-top:18px}
+.about-txt strong{color:var(--ink);font-weight:600}
+.contact-list{margin-top:40px;border-top:1px solid var(--ink)}
+.contact-list a{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 0;border-bottom:1px solid var(--line);transition:padding-left .25s;
+}
+.contact-list a:hover{padding-left:12px}
+.contact-list .c-k{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--gray)}
+.contact-list .c-v{font-family:var(--display);font-weight:500;font-size:15px}
+
+footer{border-top:1px solid var(--line);padding:32px 0}
+.foot-in{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer .mono{color:var(--gray-light);text-transform:none;letter-spacing:.02em}
+</style>
 </head>
 <body>
 
-  <!-- Masthead -->
-  <header>
-    <div class="util">
-      <div class="util__inner">
-        <span></span>
-        <nav class="util__nav">
-          <a href="#work">Work</a>
-          <a href="#archive">Archive</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
-          <a href="https://www.linkedin.com/in/haesung-lee/" target="_blank" rel="noopener">LinkedIn ↗</a>
-        </nav>
+<nav id="nav">
+  <div class="nav-in">
+    <a href="#" class="nav-name">Haesung Lee</a>
+    <div class="nav-links">
+      <a href="#ktown">Work</a>
+      <a href="#analytics">Analytics</a>
+      <a href="#archive">Archive</a>
+      <a href="#about">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero wrap">
+  <div class="hero-eyebrow rv">
+    <span>Haesung Lee</span>
+    <span>Los Angeles, CA</span>
+    <span>Data · Product · Community</span>
+  </div>
+  <div class="hero-grid">
+    <h1 class="rv">Diving deep into data, surfacing the next wave.</h1>
+    <pre class="ascii rv" id="ascii" aria-hidden="true"></pre>
+  </div>
+  <p class="hero-sub rv">
+    Turning signals into <strong>AI products, agent workflows, and communities</strong>
+    that move culture forward.
+  </p>
+  <div class="hero-cta rv">
+    <a class="btn solid" href="mailto:haesung.lee.810@gmail.com">Get in touch</a>
+    <a class="btn ghost" href="#ktown">See the work</a>
+    <a class="btn ghost" href="https://github.com/leo-hs" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+
+  <div class="hero-index rv">
+    <a href="#ktown">
+      <span class="hi-num">01</span>
+      <span class="hi-title">K-Town Night</span>
+      <span class="hi-desc">A data insight that became a national story</span>
+    </a>
+    <a href="#gru">
+      <span class="hi-num">02</span>
+      <span class="hi-title">Gru · AI Fitness Mirror</span>
+      <span class="hi-desc">Multimodal 0→1 product, patented</span>
+    </a>
+    <a href="#octomatic">
+      <span class="hi-num">03</span>
+      <span class="hi-title">Signal</span>
+      <span class="hi-desc">AI builder community + AI newsfeed</span>
+    </a>
+    <a href="#hesse">
+      <span class="hi-num">04</span>
+      <span class="hi-title">Hesse · AI Video Agent</span>
+      <span class="hi-desc">An open-source agent that directs & ships video</span>
+    </a>
+    <a href="#analytics">
+      <span class="hi-num">05</span>
+      <span class="hi-title">Customer Segmentation</span>
+      <span class="hi-desc">Data science: K-Means clustering to CRM strategy</span>
+    </a>
+  </div>
+</header>
+
+<!-- ============ K-TOWN ============ -->
+<section id="ktown">
+  <div class="wrap">
+    <div class="label rv">01 · Featured · LA Kings</div>
+    <h2 class="rv">The NHL's first K-Town Night started as a query.</h2>
+    <p class="lede rv">
+      Fan data showed an underserved demographic hiding in plain sight. I pitched it,
+      built the case, and helped launch <strong>K-Town Night</strong>, now the franchise's
+      most viral moment in 13 years. The game sold out two years running, and a Koreatown
+      seniors' harmonica class ended up playing the national anthem at the Stanley Cup Playoffs.
+    </p>
+
+    <div class="kt-grid">
+      <!-- Featured interview card -->
+      <a class="kt-feature rv" href="https://en.koreadaily.com/la-kings-k-town-night-2/" target="_blank" rel="noopener" aria-label="The Korea Daily exclusive interview: Why the LA Kings created K-Town Night instead of Korea Night">
+        <div class="kt-photo">
+          <img src="assets/ktown-interview.jpg" alt="Haesung Lee at Crypto.com Arena">
+        </div>
+        <div class="kt-caption">
+          <span class="outlet"><span style="color:var(--accent-text)">Exclusive Interview</span> · The Korea Daily · Feb 2026</span>
+          <h3>Why the LA Kings created K-Town Night instead of Korea Night</h3>
+          <p>On the data-driven strategy behind the event, and why the naming mattered.</p>
+        </div>
+      </a>
+
+      <!-- Press index -->
+      <div class="rv">
+        <div class="press-logos">
+          <img src="assets/press/logos.png" alt="As seen in ESPN, Billboard, CBS, The Washington Post, Los Angeles Times">
+        </div>
+        <div class="press-head">
+          <span class="mono">Press index</span>
+          <span class="mono count">National coverage</span>
+        </div>
+        <!-- Replace each href="#" with the article URL -->
+        <a class="press-row" href="https://www.espn.com/nhl/story/_/id/44908242/nhl-playoffs-2025-stanley-cup-harmonica-national-anthem-korean-seniors-kings" target="_blank" rel="noopener" aria-label="ESPN: How a group of Korean harmonica players captivated the world">
+          <img src="assets/press/espn.png" alt="ESPN: How a group of Korean harmonica players captivated the world" loading="lazy">
+        </a>
+        <a class="press-row" href="https://www.washingtonpost.com/sports/2025/04/29/la-kings-harmonica-national-anthem/" target="_blank" rel="noopener" aria-label="The Washington Post: How Koreatown senior citizens with harmonicas became NHL playoff stars">
+          <img src="assets/press/wapo.png" alt="The Washington Post: How Koreatown senior citizens with harmonicas became NHL playoff stars" loading="lazy">
+        </a>
+        <a class="press-row" href="https://www.billboard.com/music/music-news/la-kings-koreatown-senior-harmonica-class-national-anthem-1235959674/" target="_blank" rel="noopener" aria-label="Billboard: L.A. Kings put Koreatown Senior Center harmonica class at center ice">
+          <img src="assets/press/billboard.png" alt="Billboard: L.A. Kings put Koreatown Senior Center harmonica class at center ice" loading="lazy">
+        </a>
+        <a class="press-row" href="https://www.latimes.com/sports/story/2025-04-25/kings-harmonica-national-anthem-koreatown-senior-center" target="_blank" rel="noopener" aria-label="Los Angeles Times: How Koreatown seniors have become Kings' playoff good luck charm">
+          <img src="assets/press/latimes.png" alt="Los Angeles Times: How Koreatown seniors have become Kings' playoff good luck charm" loading="lazy">
+        </a>
+        <a class="press-row" href="https://www.cbsnews.com/losangeles/news/koreatown-seniors-win-over-hockey-fans-with-harmonica-performance-at-la-kings-games/" target="_blank" rel="noopener" aria-label="CBS News: Koreatown seniors win over hockey fans at LA Kings games">
+          <img src="assets/press/cbs.png" alt="CBS News: Koreatown seniors win over hockey fans at LA Kings games" loading="lazy">
+        </a>
       </div>
     </div>
 
-    <div class="masthead">
-      <div class="masthead__date"></div>
-      <div class="masthead__center">
-        <h1 class="wordmark">Haesung Lee</h1>
-        <p class="masthead__tag">Data · AI · Product</p>
-      </div>
-      <div class="masthead__right"></div>
+    <div class="kt-stats rv">
+      <div class="kt-stat"><div class="v">2× sold out</div><div class="k">Back-to-back seasons</div></div>
+      <div class="kt-stat"><div class="v">+77% YoY</div><div class="k">Specialty merchandise sales</div></div>
+      <div class="kt-stat"><div class="v">13 years</div><div class="k">Franchise's biggest viral moment since</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GRU ============ -->
+<section id="gru">
+  <div class="wrap">
+    <div class="label rv">02 · Multimodal product · Head of Product, IPLAB Seoul</div>
+    <h2 class="rv">Gru: a mirror that sees you in 3D.</h2>
+    <p class="lede rv">
+      A 0→1 AI fitness mirror: hardware, software, content, and app. Multi-camera and
+      sensor arrays capture body data, generate a live 3D avatar, and coach your pose in
+      real time. <strong>Filed as a WIPO/USPTO patent</strong> (PCT/US2020/061822) and backed
+      by $50K+ in non-dilutive grants from KISED and the City of Seoul.
+    </p>
+
+    <div class="gru-video rv">
+      <iframe id="gru-yt" src="https://www.youtube.com/embed/Xkd4u_e9Y5I?autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=Xkd4u_e9Y5I&amp;controls=0&amp;rel=0&amp;playsinline=1&amp;enablejsapi=1"
+        title="Gru AI fitness mirror promo video"
+        allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
     </div>
 
-    <div class="ticker" aria-hidden="true">
-      <div class="ticker__track">
-        <span>Originated LA Kings K-Town Night</span><span class="sep">/</span>
-        <span>Featured on ESPN &amp; The Korea Daily</span><span class="sep">/</span>
-        <span>Built AI products real people use</span><span class="sep">/</span>
-        <span>Fivetran → Databricks → LLMs</span><span class="sep">/</span>
-        <span>Modeling &amp; Customer Segmentation</span><span class="sep">/</span>
-        <span>Digital Marketing &amp; Attribution</span><span class="sep">/</span>
-        <span>BI Analytics Engineer &amp; Product Owner</span><span class="sep">/</span>
-        <span>Originated LA Kings K-Town Night</span><span class="sep">/</span>
-        <span>Featured on ESPN &amp; The Korea Daily</span><span class="sep">/</span>
-        <span>Built AI products real people use</span><span class="sep">/</span>
-        <span>Fivetran → Databricks → LLMs</span><span class="sep">/</span>
-        <span>Modeling &amp; Customer Segmentation</span><span class="sep">/</span>
-        <span>Digital Marketing &amp; Attribution</span><span class="sep">/</span>
-        <span>BI Analytics Engineer &amp; Product Owner</span><span class="sep">/</span>
+    <div class="pipeline rv">
+      <div class="pipe-step">
+        <span class="num">Capture</span>
+        <h4>Multi-camera / sensor array</h4>
+        <p>Synchronized cameras and sensors capture full-body pose and movement data.</p>
+      </div>
+      <div class="pipe-step">
+        <span class="num">Model</span>
+        <h4>Live 3D avatar</h4>
+        <p>Body data is reconstructed into a real-time 3D avatar of the user.</p>
+      </div>
+      <div class="pipe-step">
+        <span class="num">Coach</span>
+        <h4>Pose coaching & styling</h4>
+        <p>The avatar drives pose correction and personalized outfit recommendations.</p>
       </div>
     </div>
-  </header>
 
-  <main>
-    <!-- Hero -->
-    <section class="hero wrap">
-      <div class="hero__grid">
-        <div class="hero__left">
-          <h1>I turn data &amp; AI into things people <span class="u">gather around.</span></h1>
-        </div>
-        <div class="hero__right" style="align-self:center">
-          <p class="hero__lede">
-            By day I model the data behind the LA Kings' ticketing and customer segmentation. Nights and
-            weekends I build my own AI products real people use, from a menu platform live with paying
-            restaurants to the promotional theme night that ends with eighty-year-olds playing harmonica on
-            NHL ice. The throughline is older than any of it: I've always been chasing how an idea gets from
-            one head into a room full of people.
-          </p>
-          <div class="hero__cta">
-            <a class="btn" href="#work">Read the work <span class="arr">→</span></a>
-            <a class="btn btn--ghost" href="#contact">Get in touch</a>
-          </div>
-        </div>
+    <div class="fact-chips rv">
+      <span class="chip">WIPO/USPTO PCT/US2020/061822</span>
+      <span class="chip">$50K+ non-dilutive grants</span>
+      <span class="chip">+24% usability score</span>
+      <span class="chip">Hardware + SW + content + app</span>
+    </div>
+
+    <div class="patent rv">
+      <div class="patent-txt">
+        <span class="mono" style="color:var(--gray);display:block;margin-bottom:12px">WIPO / USPTO · PCT/US2020/061822</span>
+        <h3>Smart mirror system for collecting and visualizing physical appearance information</h3>
+        <p>The multi-camera body-measurement and 3D-avatar coaching system behind Gru is
+        filed as an international PCT application covering capture, avatar generation,
+        and personalized styling recommendations.</p>
+        <a class="tlink" href="https://patentscope.wipo.int/search/en/detail.jsf?docId=WO2021102417&amp;_cid=P21-MQQC0Q-10682-1" target="_blank" rel="noopener">View the filing <span class="arrow">→</span></a>
       </div>
-    </section>
-
-    <!-- Lead Story -->
-    <section class="section wrap" id="leadstory" style="padding-bottom:0">
-      <div class="sec-head">
-        <h2>Lead Story</h2>
-        <span class="count">Community × Data · LA Kings · 2025-26</span>
-      </div>
-      <div class="reveal">
-        <span class="tag a-green" style="display:inline-block; margin-bottom:1.2rem">◆ Featured</span>
-        <div class="ls-head">
-          <div>
-            <h3 class="ls-title">LA Kings<br />K-Town Night</h3>
-          </div>
-          <div>
-            <p class="ls-intro">The first NHL program built around Korean-American culture. As the only Korean employee at the LA Kings, I pitched the idea using ticketing and audience data, making the case for a real growth opportunity in LA's Korean community, and for celebrating <strong>Koreatown specifically</strong> rather than a generic "Korea Night." The seniors who played the anthem in hanbok went viral, reaching ESPN, the LA Times, CBS, and Sportsnet. It became the franchise's biggest viral moment since its Stanley Cup season.</p>
-            <div style="display:flex; gap:0.7rem; flex-wrap:wrap">
-              <a class="btn" href="ktown.html">Read the full story <span class="arr">→</span></a>
-              <a class="btn btn--ghost" href="https://www.espn.com/nhl/story/_/id/44908242/nhl-playoffs-2025-stanley-cup-harmonica-national-anthem-korean-seniors-kings" target="_blank" rel="noopener">ESPN ↗</a>
-              <a class="btn btn--ghost" href="https://en.koreadaily.com/la-kings-k-town-night-2/" target="_blank" rel="noopener">The Korea Daily ↗</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="detail-grid reveal">
-        <figure class="figure clip" style="margin:0">
-          <figcaption class="clip__bar"><span class="dots"><i></i><i></i><i></i></span> espn.com/nhl</figcaption>
-          <img src="img/ktown_espn.jpeg" alt="Korean seniors in hanbok perform the national anthem on harmonica at an LA Kings playoff game, as featured on ESPN." />
-        </figure>
-        <figure class="figure clip" style="margin:0">
-          <figcaption class="clip__bar"><span class="dots"><i></i><i></i><i></i></span> en.koreadaily.com</figcaption>
-          <img src="img/ktown_kd.jpeg" alt="The Korea Daily feature on Haesung Lee inside Crypto.com Arena: Why the LA Kings Created K-Town Night Instead of Korea Night." />
-        </figure>
-      </div>
-    </section>
-
-    <!-- Work -->
-    <section class="section wrap" id="work">
-      <div class="sec-head">
-        <h2>Selected Work</h2>
-        <span class="count">Products built from scratch</span>
-      </div>
-
-      <!-- Highlight: fitness start-up (auto-looping video) -->
-      <article class="card feature-card reveal">
-        <div class="video-frame">
-          <iframe src="https://www.youtube.com/embed/Xkd4u_e9Y5I?autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=Xkd4u_e9Y5I&amp;controls=0&amp;modestbranding=1&amp;rel=0&amp;playsinline=1&amp;showinfo=0" title="Gru Studio: building a fitness start-up, A to Z" allow="autoplay; encrypted-media; picture-in-picture" loading="lazy"></iframe>
-        </div>
-        <div class="card__body">
-          <div class="card__head" style="padding:0 0 0.7rem"><span class="tag">◆ Highlight · Start-up</span><span class="card__date">A-to-Z</span></div>
-          <h3>Start-up A-to-Z:<br />Fitness Mirror &amp; App</h3>
-          <p>I founded <strong>IPLAB Seoul</strong> and built <strong>Gru Studio</strong>, a home fitness mirror and interactive app that streams high-quality classes while you watch yourself move. I ran the whole arc: business planning, product, team building, fund raising, UX/UI, and content. The video is that journey, start to finish.</p>
-          <hr class="card__divider" />
-          <div class="card__foot">
-            <div class="card__actions"><a class="act act--ghost" href="https://leo-hs.github.io/gru_studio.html" target="_blank" rel="noopener">Watch the journey ↗</a></div>
-          </div>
-        </div>
-      </article>
-
-      <div class="pgrid pgrid--pad">
-
-        <!-- Octomatic -->
-        <article class="card card--link a-teal reveal">
-          <div class="card__head"><span class="tag">AI Builders</span><span class="card__date">No. 02 · 2026</span></div>
-          <a href="octomatic.html" tabindex="-1"><img class="card__img" style="aspect-ratio:16/10" src="img/octomatic_signal_hero.jpeg" alt="Octomatic Signal, Today's Signal, a daily auto-curated feed of vibe-coding and AI-builder news." /></a>
-          <div class="card__body">
-            <h3><a href="octomatic.html">Octomatic</a></h3>
-            <p class="tagline">"Build through conversation, not code."</p>
-            <p>An AI-builder community for the vibe-coding era. Its daily <b style="color:var(--accent)">Signal</b> feed auto-curates the best builder news from Reddit, Hacker News, and X, so the crew never misses what shipped. I run it: Signal, workshops, prompt libraries, showcases.</p>
-            <hr class="card__divider" />
-            <div class="card__foot">
-              <div class="card__actions">
-                <a class="act" href="octomatic.html">Project detail →</a>
-                <a class="act act--ghost" href="https://www.octomatic.community/en/signal" target="_blank" rel="noopener">Signal ↗</a>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Listro -->
-        <article class="card card--link a-marigold reveal">
-          <div class="card__head"><span class="tag">Product · F&amp;B Tech</span><span class="card__date">No. 03 · 2025</span></div>
-          <a href="listro.html" tabindex="-1"><img class="card__img" style="aspect-ratio:16/10" src="img/listro_menu.jpeg" alt="Listro digital menu live for Father's Office, with food photos, categories, and tap-to-order." /></a>
-          <div class="card__body">
-            <h3><a href="listro.html">Listro</a></h3>
-            <p class="tagline">"Your menu, reinvented."</p>
-            <p>A digital-menu platform that swaps paper for a tap, NFC or QR, no app, no reprints, no photoshoots. Live in rooms like Father's Office and Yabu, from $25 a month.</p>
-            <hr class="card__divider" />
-            <div class="card__foot">
-              <div class="card__actions">
-                <a class="act" href="listro.html">Project detail →</a>
-                <a class="act act--ghost" href="https://www.listro.menu/" target="_blank" rel="noopener">listro.menu ↗</a>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Tabo -->
-        <article class="card card--link a-vermilion reveal">
-          <div class="card__head"><span class="tag">Product · Networking</span><span class="card__date">No. 04 · 2025</span></div>
-          <a href="tabo.html" tabindex="-1"><img class="card__img" style="aspect-ratio:16/10" src="img/tabo_hero.jpeg" alt="Tabo, Tap. Connect. Follow up. Smart NFC business cards." /></a>
-          <div class="card__body">
-            <h3><a href="tabo.html">Tabo</a></h3>
-            <p class="tagline">"Tap. Connect. Follow up."</p>
-            <p>Smart NFC business cards. One tap shares your full profile, no app for the other person, both sides exchange contacts, AI drafts the follow-up, and analytics show who actually looked.</p>
-            <hr class="card__divider" />
-            <div class="card__foot">
-              <div class="card__actions">
-                <a class="act" href="tabo.html">Project detail →</a>
-                <a class="act act--ghost" href="https://tabo.cards/" target="_blank" rel="noopener">tabo.cards ↗</a>
-              </div>
-            </div>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- Archive -->
-    <section class="section wrap" id="archive">
-      <div class="sec-head">
-        <h2>Analytics &amp; Data</h2>
-        <span class="count">Strategy backed by data analytics</span>
-      </div>
-      <div class="pgrid pgrid--pad">
-
-        <article class="card card--link a-vermilion reveal">
-          <div class="card__head"><span class="tag">Analytics · DevOps</span><span class="card__date">2024</span></div>
-          <a href="https://leo-hs.github.io/sap.html" target="_blank" rel="noopener" tabindex="-1"><img class="card__img" style="aspect-ratio:16/10" src="img/arch_pic00.jpg" alt="SAP Project Dashboard, cover graphic." /></a>
-          <div class="card__body">
-            <h3><a href="https://leo-hs.github.io/sap.html" target="_blank" rel="noopener">SAP Project Dashboard</a></h3>
-            <p>Jira &amp; GitHub backlog data turned into a dashboard tracking engineering-team productivity and collaboration health for SAP.</p>
-            <hr class="card__divider" />
-            <div class="card__foot">
-              <div class="card__actions"><a class="act act--ghost" href="https://leo-hs.github.io/sap.html" target="_blank" rel="noopener">Read on site ↗</a></div>
-            </div>
-          </div>
-        </article>
-
-        <article class="card card--link a-green reveal">
-          <div class="card__head"><span class="tag">AI · Product</span><span class="card__date">2023</span></div>
-          <a href="https://leo-hs.github.io/nirvana.html" target="_blank" rel="noopener" tabindex="-1"><img class="card__img" style="aspect-ratio:16/10" src="img/arch_pic01.jpg" alt="Nirvana AI chatbot, cover graphic." /></a>
-          <div class="card__body">
-            <h3><a href="https://leo-hs.github.io/nirvana.html" target="_blank" rel="noopener">Nirvana</a></h3>
-            <p>An LLM counseling chatbot, prompt-engineered to listen and share wisdom, an early experiment in putting an LLM in front of real users.</p>
-            <hr class="card__divider" />
-            <div class="card__foot">
-              <div class="card__actions"><a class="act act--ghost" href="https://leo-hs.github.io/nirvana.html" target="_blank" rel="noopener">Read on site ↗</a></div>
-            </div>
-          </div>
-        </article>
-
-        <article class="card card--link a-teal reveal">
-          <div class="card__head"><span class="tag">Data Engineering</span><span class="card__date">2023</span></div>
-          <a href="https://leo-hs.github.io/youtube_analystics.html" target="_blank" rel="noopener" tabindex="-1"><img class="card__img" style="aspect-ratio:16/10" src="img/arch_pic02.jpg" alt="YouTube Channel Monitor, cover graphic." /></a>
-          <div class="card__body">
-            <h3><a href="https://leo-hs.github.io/youtube_analystics.html" target="_blank" rel="noopener">YouTube Channel Monitor</a></h3>
-            <p>A pipeline that surfaces channel analytics for brands evaluating creator partnerships, without direct access to a channel's dashboard.</p>
-            <hr class="card__divider" />
-            <div class="card__foot">
-              <div class="card__actions"><a class="act act--ghost" href="https://leo-hs.github.io/youtube_analystics.html" target="_blank" rel="noopener">Read on site ↗</a></div>
-            </div>
-          </div>
-        </article>
-
-        <article class="card card--link a-marigold reveal">
-          <div class="card__head"><span class="tag">Data Analysis</span><span class="card__date">2023</span></div>
-          <a href="https://leo-hs.github.io/glassdoor.html" target="_blank" rel="noopener" tabindex="-1"><img class="card__img" style="aspect-ratio:16/10" src="img/arch_pic04.jpg" alt="US Data-Job Market analysis, cover graphic." /></a>
-          <div class="card__body">
-            <h3><a href="https://leo-hs.github.io/glassdoor.html" target="_blank" rel="noopener">US Data-Job Market</a></h3>
-            <p>Scraped Glassdoor postings analyzed to map the shape, pay, and skills of the US data job market.</p>
-            <hr class="card__divider" />
-            <div class="card__foot">
-              <div class="card__actions"><a class="act act--ghost" href="https://leo-hs.github.io/glassdoor.html" target="_blank" rel="noopener">Read on site ↗</a></div>
-            </div>
-          </div>
-        </article>
-
-        <article class="card card--link a-teal reveal">
-          <div class="card__head"><span class="tag">People Analytics</span><span class="card__date">2023</span></div>
-          <a href="https://leo-hs.github.io/hr_analytics.html" target="_blank" rel="noopener" tabindex="-1"><img class="card__img" style="aspect-ratio:16/10" src="img/arch_pic06.jpg" alt="HR Analytics, cover graphic." /></a>
-          <div class="card__body">
-            <h3><a href="https://leo-hs.github.io/hr_analytics.html" target="_blank" rel="noopener">HR Analytics</a></h3>
-            <p>Modeling employee attrition and the drivers behind retention, turning people data into decisions managers can act on.</p>
-            <hr class="card__divider" />
-            <div class="card__foot">
-              <div class="card__actions"><a class="act act--ghost" href="https://leo-hs.github.io/hr_analytics.html" target="_blank" rel="noopener">Read on site ↗</a></div>
-            </div>
-          </div>
-        </article>
-
-        <article class="card card--link a-vermilion reveal">
-          <div class="card__head"><span class="tag">Machine Learning</span><span class="card__date">2023</span></div>
-          <a href="https://leo-hs.github.io/bc_predict.html" target="_blank" rel="noopener" tabindex="-1"><img class="card__img" style="aspect-ratio:16/10" src="img/arch_pic05.jpg" alt="Breast-Cancer Prediction, cover graphic." /></a>
-          <div class="card__body">
-            <h3><a href="https://leo-hs.github.io/bc_predict.html" target="_blank" rel="noopener">Breast-Cancer Prediction</a></h3>
-            <p>A classification model for early detection from diagnostic features, a study in careful evaluation where false negatives carry real cost.</p>
-            <hr class="card__divider" />
-            <div class="card__foot">
-              <div class="card__actions"><a class="act act--ghost" href="https://leo-hs.github.io/bc_predict.html" target="_blank" rel="noopener">Read on site ↗</a></div>
-            </div>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- Marketing & User Acquisition -->
-    <section class="section wrap" id="marketing">
-      <div class="sec-head">
-        <h2>Marketing &amp; User Acquisition</h2>
-        <span class="count">growth · brand · PR</span>
-      </div>
-      <div class="pgrid pgrid--pad">
-
-        <article class="card card--link a-marigold reveal">
-          <div class="card__head"><span class="tag">Brand Marketing</span><span class="card__date">2023</span></div>
-          <a href="https://leo-hs.github.io/brandmkt.html" target="_blank" rel="noopener" tabindex="-1"><img class="card__img" style="aspect-ratio:16/10" src="img/arch_pic07.jpg" alt="Strategic Brand Asset Renewal, mobile game store creative." /></a>
-          <div class="card__body">
-            <h3><a href="https://leo-hs.github.io/brandmkt.html" target="_blank" rel="noopener">Brand Asset Renewal</a></h3>
-            <p>A strategic refresh of a mobile game's store presence, icons, screenshots, and feature graphics across Google Play and the App Store, to lift install conversion and better reflect the product.</p>
-            <hr class="card__divider" />
-            <div class="card__foot">
-              <div class="card__actions"><a class="act act--ghost" href="https://leo-hs.github.io/brandmkt.html" target="_blank" rel="noopener">Read on site ↗</a></div>
-            </div>
-          </div>
-        </article>
-
-        <article class="card card--link a-vermilion reveal">
-          <div class="card__head"><span class="tag">UA Creative</span><span class="card__date">2023</span></div>
-          <a href="https://leo-hs.github.io/uac.html" target="_blank" rel="noopener" tabindex="-1"><img class="card__img" style="aspect-ratio:16/10" src="img/arch_pic09.jpg" alt="TikTok Creative Strategy, how to use TikTok Top Ads." /></a>
-          <div class="card__body">
-            <h3><a href="https://leo-hs.github.io/uac.html" target="_blank" rel="noopener">TikTok Creative Strategy</a></h3>
-            <p>A tailored content strategy for user-acquisition creative on TikTok, studying Top Ads to shape the hooks, formats, and messaging that actually convert viewers into installs.</p>
-            <hr class="card__divider" />
-            <div class="card__foot">
-              <div class="card__actions"><a class="act act--ghost" href="https://leo-hs.github.io/uac.html" target="_blank" rel="noopener">Read on site ↗</a></div>
-            </div>
-          </div>
-        </article>
-
-        <article class="card card--link a-teal reveal">
-          <div class="card__head"><span class="tag">PR Campaign</span><span class="card__date">2023</span></div>
-          <a href="https://leo-hs.github.io/PR.html" target="_blank" rel="noopener" tabindex="-1"><img class="card__img" style="aspect-ratio:16/10" src="img/arch_pic08.jpg" alt="IP Expansion Strategy, Summoners War animated series announcement." /></a>
-          <div class="card__body">
-            <h3><a href="https://leo-hs.github.io/PR.html" target="_blank" rel="noopener">IP Expansion Strategy</a></h3>
-            <p>A plan to expand a popular game IP into new media, an animated series and beyond, growing the franchise's audience and cultural footprint past the app itself.</p>
-            <hr class="card__divider" />
-            <div class="card__foot">
-              <div class="card__actions"><a class="act act--ghost" href="https://leo-hs.github.io/PR.html" target="_blank" rel="noopener">Read on site ↗</a></div>
-            </div>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- About -->
-    <section class="section wrap" id="about">
-      <div class="sec-head">
-        <h2>A product builder who speaks data</h2>
-      </div>
-      <div class="about">
-        <div class="about__body">
-          <p>
-            Born in Seoul, I studied communications at the University of Iowa, then worked in marketing at the
-            U.S. arm of game maker Com2uS. A realization sent me back to school: the decisions that mattered were
-            all made with data, and I wanted to be the one making them. I earned an M.S. in Business Analytics at
-            UC Irvine and joined the LA Kings as a business-intelligence analyst.
-          </p>
-          <p>
-            Today I work across the modern data stack, Fivetran into Databricks, a bronze / silver / gold
-            warehouse, SQL transformations, and LLMs woven into the workflow, turning ticketing, web, and
-            marketing data into decisions executives can act on. Outside the arena, I build: products, communities,
-            and the occasional night that ends with eighty-year-olds playing harmonica on NHL ice.
-          </p>
-        </div>
-        <div class="factsheet reveal">
-          <div class="factsheet__row"><span class="factsheet__k">Education</span><span class="factsheet__v">M.S. Business Analytics, UC Irvine · B.A. Communications, Iowa</span></div>
-          <div class="factsheet__row"><span class="factsheet__k">Focus</span><span class="factsheet__v">Analytics Engineering · BI · AI integration</span></div>
-          <div class="factsheet__row"><span class="factsheet__k">Tools</span><span class="factsheet__v">SQL, Python, Databricks, Fivetran, BigQuery, Tableau, GA4</span></div>
-          <div class="factsheet__row"><span class="factsheet__k">Status</span><span class="factsheet__v">Open to BI Analytics &amp; Product Owner Role in AI tech.</span></div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Contact -->
-  <footer class="section contact" id="contact">
-    <div class="wrap">
-      <p class="eyebrow" style="color:var(--c-marigold);margin-bottom:1.4rem"><span style="color:var(--c-vermilion)">●</span> LET'S TALK</p>
-      <h2 class="contact__big">Let's build something people <a href="mailto:haesung.lee.810@gmail.com">gather around.</a></h2>
-      <div class="contact__row">
-        <a href="mailto:haesung.lee.810@gmail.com">✉ haesung.lee.810@gmail.com</a>
-        <a href="https://www.linkedin.com/in/haesung-lee/" target="_blank" rel="noopener">↗ LinkedIn</a>
-        <a href="https://github.com/Leo-hs-lee" target="_blank" rel="noopener">↗ GitHub</a>
-      </div>
-      <div class="footer-meta">
-        <span>© <span data-year>2026</span> Haesung Lee, Los Angeles, CA</span>
+      <div class="patent-figs">
+        <img src="assets/patent/fig-pose.png" alt="Patent figure: mirror display coaching a yoga pose" loading="lazy">
+        <img src="assets/patent/fig-scan.png" alt="Patent figure: whole-body scan with 3D avatar panel" loading="lazy">
+        <img src="assets/patent/fig-style.png" alt="Patent figure: outfit recommendation on the mirror display" loading="lazy">
+        <img src="assets/patent/fig8-system.png" alt="Patent FIG. 8: system architecture with sensors, processing unit, network, and server" loading="lazy">
+        <img src="assets/patent/fig7-chip.png" alt="Patent FIG. 7: processing unit with CPU, GPU, AI chip, and accelerators" loading="lazy">
       </div>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <script src="assets/js/site.js"></script>
+<!-- ============ OCTOMATIC ============ -->
+<section id="octomatic">
+  <div class="wrap">
+    <div class="label rv">03 · AI pipeline · Octomatic.ai</div>
+    <h2 class="rv">Signal: turning AI curiosity into community.</h2>
+    <p class="lede rv">
+      Built an AI-coding community that brought <strong>500+ people</strong> into live seminars,
+      then created <strong>Signal</strong>, a daily AI newsletter that curates the most important
+      updates from Reddit, Hacker News, X, and 150+ sources into one briefing.
+    </p>
+
+    <div class="signal-video rv">
+      <video src="assets/signal-demo.mp4" autoplay muted loop playsinline preload="metadata"
+        aria-label="Signal newsletter product demo"></video>
+    </div>
+
+    <h3 class="flow-title rv">Signal Newsletter Pipeline Architecture</h3>
+    <div class="signal-flow rv">
+      <svg viewBox="0 0 880 240" role="img" aria-label="Signal pipeline: sources are ingested, ranked, deduped, and delivered as a newsletter">
+        <!-- sources -->
+        <g>
+          <rect x="10" y="20" width="150" height="44" fill="none" stroke="#e4e4e7"/>
+          <text x="85" y="46" text-anchor="middle" class="svg-title" fill="#0a0a0a">Reddit</text>
+          <rect x="10" y="88" width="150" height="44" fill="none" stroke="#e4e4e7"/>
+          <text x="85" y="114" text-anchor="middle" class="svg-title" fill="#0a0a0a">Hacker News</text>
+          <rect x="10" y="156" width="150" height="44" fill="none" stroke="#e4e4e7"/>
+          <text x="85" y="182" text-anchor="middle" class="svg-title" fill="#0a0a0a">X</text>
+          <text x="10" y="228" class="svg-mono" fill="#71717a">150+ items / day</text>
+        </g>
+        <!-- converging lines -->
+        <path d="M160 42 H210 Q240 42 240 78 V96" fill="none" stroke="#a1a1aa" stroke-width="1"/>
+        <path d="M160 110 H240" fill="none" stroke="#a1a1aa" stroke-width="1"/>
+        <path d="M160 178 H210 Q240 178 240 142 V124" fill="none" stroke="#a1a1aa" stroke-width="1"/>
+        <!-- ingest -->
+        <rect x="240" y="88" width="130" height="44" fill="#0a0a0a"/>
+        <text x="305" y="114" text-anchor="middle" class="svg-title" fill="#ffffff">Ingest</text>
+        <path d="M370 110 H420" stroke="#a1a1aa" stroke-width="1"/>
+        <!-- rank -->
+        <rect x="420" y="88" width="130" height="44" fill="none" stroke="#0a0a0a"/>
+        <text x="485" y="114" text-anchor="middle" class="svg-title" fill="#0a0a0a">Rank</text>
+        <path d="M550 110 H600" stroke="#a1a1aa" stroke-width="1"/>
+        <!-- dedupe -->
+        <rect x="600" y="88" width="130" height="44" fill="none" stroke="#0a0a0a"/>
+        <text x="665" y="114" text-anchor="middle" class="svg-title" fill="#0a0a0a">Dedupe</text>
+        <path d="M730 110 H770" stroke="#a1a1aa" stroke-width="1"/>
+        <!-- output -->
+        <rect x="770" y="74" width="100" height="72" fill="none" stroke="#0a0a0a" stroke-width="1.5"/>
+        <text x="820" y="104" text-anchor="middle" class="svg-title" fill="#0a0a0a">Daily</text>
+        <text x="820" y="122" text-anchor="middle" class="svg-title" fill="#0a0a0a">newsletter</text>
+        <text x="770" y="176" class="svg-mono" fill="#71717a">500+ registrations</text>
+        <text x="770" y="196" class="svg-mono" fill="#71717a">130+ daily readers</text>
+        <!-- role note -->
+        <text x="420" y="60" class="svg-mono" fill="#71717a">Authored the PRD + API contracts</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HESSE ============ -->
+<section id="hesse">
+  <div class="wrap">
+    <div class="label rv">04 · AI video agent · Open source</div>
+    <h2 class="rv">Hesse: AI Video Director Agent in your pocket.</h2>
+    <p class="lede rv">
+      A phone-operated AI video production pipeline built on <strong>Claude Code</strong>.
+      One command from my phone starts the loop: a producer skill turns the idea into
+      characters, locations, and a storyboard; <strong>Higgsfield</strong> generates the
+      shots; renders land in Google Drive to approve or revise, while the Mac runs
+      unattended. Fully open source.
+    </p>
+    <div class="rv" style="margin-top:32px">
+      <a class="btn ghost" href="https://github.com/leo-hs/Hesse" target="_blank" rel="noopener">View on GitHub →</a>
+    </div>
+
+    <div class="hesse-grid rv">
+      <div>
+        <div class="hesse-video">
+          <video src="assets/hesse-demo.mp4" autoplay muted loop playsinline preload="metadata"
+            aria-label="Video generated and assembled end-to-end by Hesse"></video>
+        </div>
+        <div class="hesse-video" style="margin-top:16px;aspect-ratio:1280/736">
+          <video src="assets/hesse-demo-2.mp4" autoplay muted loop playsinline preload="metadata"
+            aria-label="Hesse in action: phone-operated production run"></video>
+        </div>
+        <div class="media-cap">Output · generated &amp; assembled end-to-end by Hesse</div>
+      </div>
+      <div>
+        <div class="hesse-flow">
+          <svg viewBox="0 0 420 600" role="img" aria-label="Hesse core production loop: phone command, remote control session, Hesse orchestration in Claude Code, Higgsfield generation, review in Google Drive, with an approve-or-revise loop back to the phone">
+            <defs>
+              <marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+                <path d="M0 0L8 4L0 8z" fill="#71717a"/>
+              </marker>
+            </defs>
+            <!-- 01 Phone -->
+            <rect x="40" y="14" width="250" height="64" fill="none" stroke="#0a0a0a"/>
+            <text x="165" y="41" text-anchor="middle" class="svg-title" fill="#0a0a0a">01 · Phone</text>
+            <text x="165" y="62" text-anchor="middle" class="svg-small" fill="#71717a">Claude app · commands + approval gate</text>
+            <line x1="165" y1="78" x2="165" y2="126" stroke="#a1a1aa" marker-end="url(#ah)"/>
+            <text x="180" y="108" class="svg-mono" fill="#71717a">prompt</text>
+            <!-- 02 Control -->
+            <rect x="40" y="132" width="250" height="64" fill="none" stroke="#0a0a0a"/>
+            <text x="165" y="159" text-anchor="middle" class="svg-title" fill="#0a0a0a">02 · Remote Control</text>
+            <text x="165" y="180" text-anchor="middle" class="svg-small" fill="#71717a">QR session · push updates</text>
+            <line x1="165" y1="196" x2="165" y2="244" stroke="#a1a1aa" marker-end="url(#ah)"/>
+            <text x="180" y="226" class="svg-mono" fill="#71717a">session</text>
+            <!-- 03 Hesse -->
+            <rect x="40" y="250" width="250" height="64" fill="#0a0a0a"/>
+            <text x="165" y="277" text-anchor="middle" class="svg-title" fill="#ffffff">03 · Hesse</text>
+            <text x="165" y="298" text-anchor="middle" class="svg-small" fill="#a1a1aa">Claude Code · producer + visuality skills</text>
+            <line x1="165" y1="314" x2="165" y2="362" stroke="#a1a1aa" marker-end="url(#ah)"/>
+            <text x="180" y="344" class="svg-mono" fill="#71717a">render</text>
+            <!-- 04 Generate -->
+            <rect x="40" y="368" width="250" height="64" fill="none" stroke="#0a0a0a"/>
+            <text x="165" y="395" text-anchor="middle" class="svg-title" fill="#0a0a0a">04 · Generate</text>
+            <text x="165" y="416" text-anchor="middle" class="svg-small" fill="#71717a">Higgsfield CLI/MCP · image + video</text>
+            <line x1="165" y1="432" x2="165" y2="480" stroke="#a1a1aa" marker-end="url(#ah)"/>
+            <text x="180" y="462" class="svg-mono" fill="#71717a">link</text>
+            <!-- 05 Review -->
+            <rect x="40" y="486" width="250" height="64" fill="none" stroke="#0a0a0a" stroke-width="1.5"/>
+            <text x="165" y="513" text-anchor="middle" class="svg-title" fill="#0a0a0a">05 · Review</text>
+            <text x="165" y="534" text-anchor="middle" class="svg-small" fill="#71717a">Google Drive · share links</text>
+            <!-- approval / revision loop -->
+            <path d="M290 518 H364 V46 H298" fill="none" stroke="#B5532A" stroke-dasharray="4 4" marker-end="url(#ah)"/>
+            <text x="382" y="360" class="svg-mono" fill="#B5532A" transform="rotate(-90 382 360)">approve / revise</text>
+            <!-- pipeline footnote -->
+            <text x="40" y="586" class="svg-mono" fill="#71717a">Idea → Storyboard → Renders → Rough cut</text>
+          </svg>
+        </div>
+        <div class="media-cap">Core production loop · command → orchestrate → generate → approve</div>
+      </div>
+    </div>
+
+    <div class="fact-chips rv">
+      <span class="chip">Claude Code skills</span>
+      <span class="chip">Higgsfield CLI/MCP</span>
+      <span class="chip">Phone-operated</span>
+      <span class="chip">tmux always-on runtime</span>
+      <span class="chip">ffmpeg rough cut</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ANALYTICS ============ -->
+<section id="analytics">
+  <div class="wrap">
+    <div class="label rv">05 · Analytics practice · AEG / LA Kings</div>
+    <h2 class="rv">Audience intelligence, built for action.</h2>
+    <p class="lede rv">
+      From <strong>customer segmentation and behavioral analysis</strong> to cultural CRM
+      campaigns, my work turns hidden audience signals into strategies that grow revenue,
+      build community, and create moments people remember.
+    </p>
+
+    <div class="an-grid">
+      <!-- Segmentation -->
+      <div class="an-card rv">
+        <div class="viz">
+          <img src="assets/analytics/segments.png" alt="Customer segments based on demographics and purchasing behavior: K-Means clusters plotted on principal components" loading="lazy">
+        </div>
+        <div class="txt">
+          <h3>Purchase-journey model + k-means segmentation</h3>
+          <p>Modeled the fan purchase journey, then clustered fans to surface the
+          highest-intent lead group for the sales team to target first.</p>
+          <div class="res">→ +34% YoY on new full-season-membership conversion</div>
+        </div>
+      </div>
+
+      <!-- KPI dashboard -->
+      <div class="an-card rv">
+        <div class="viz">
+          <img src="assets/analytics/fan-universe.png" alt="Fan Universe dashboard with fan counts, engagement trends, and segmentation filters" loading="lazy">
+        </div>
+        <div class="txt">
+          <h3>LA Kings KPI Dashboard</h3>
+          <p>Partnered with engineering, ticketing, and marketing to define shared success
+          metrics and ship one dashboard, adopted as leadership's single source of truth.</p>
+          <div class="res">→ Shared metrics + root-cause analysis of conversion</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="media-cap rv" style="margin-top:20px">Illustrative visuals for demonstration only, not screenshots of actual organizational data.</div>
+
+    <div class="fact-chips rv" style="margin-top:44px">
+      <span class="chip">Databricks</span>
+      <span class="chip">Star schema</span>
+      <span class="chip">Medallion (bronze/silver/gold)</span>
+      <span class="chip">BigQuery · Fivetran</span>
+      <span class="chip">SQL · Python</span>
+      <span class="chip">Tableau · Power BI</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ARCHIVE ============ -->
+<section id="archive">
+  <div class="wrap">
+    <div class="label rv">06 · Archive</div>
+    <h2 class="rv">More builds & experiments.</h2>
+
+    <div class="arch rv">
+      <details>
+        <summary>
+          <span class="a-cat">Live product</span>
+          <span class="a-title">Listro.menu</span>
+          <span class="a-plus">+</span>
+        </summary>
+        <div class="a-body">
+          An AI platform that turns a restaurant's existing Google/Yelp photos into
+          studio-quality digital menus (Gemini API), with a "Perfect Pairing" upsell and
+          one-tap review prompts that grew review posts 300%. Live with paying restaurants.
+          Owned end-to-end: PRD, API, Next.js/Supabase.
+          <a href="https://www.listro.menu/" target="_blank" rel="noopener">listro.menu →</a>
+        </div>
+      </details>
+      <details>
+        <summary>
+          <span class="a-cat">Live product</span>
+          <span class="a-title">Tabo.cards</span>
+          <span class="a-plus">+</span>
+        </summary>
+        <div class="a-body">
+          A digital business-card platform that auto-logs where and when each contact was
+          exchanged, and uses an LLM to instantly draft personalized follow-ups.
+          <a href="https://tabo.cards/" target="_blank" rel="noopener">tabo.cards →</a>
+        </div>
+      </details>
+      <details>
+        <summary>
+          <span class="a-cat">Growth · Com2uS USA</span>
+          <span class="a-title">A/B testing at 100M+ downloads scale</span>
+          <span class="a-plus">+</span>
+        </summary>
+        <div class="a-body">
+          Ran store-listing experiments (Google Play Console) that lifted conversion of a
+          100M+ download title by 7-15%, and drove 50%+ higher conversion with 28× CPI
+          efficiency through data-driven creative strategy across acquisition channels.
+        </div>
+      </details>
+      <!-- TEMPLATE ROW: duplicate this block for each grad-school / earlier project you want to keep -->
+      <details>
+        <summary>
+          <span class="a-cat">Grad research · UCI</span>
+          <span class="a-title">MS Business Analytics projects</span>
+          <span class="a-plus">+</span>
+        </summary>
+        <div class="a-body">
+          Selected coursework and research from the MS in Business Analytics:
+          predictive modeling, NLP, and applied ML case studies.
+          <a href="https://leo-hs.github.io/" target="_blank" rel="noopener">Full project list →</a>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT + CONTACT ============ -->
+<section id="about">
+  <div class="wrap">
+    <div class="label rv">07 · About</div>
+    <div class="about-grid">
+      <div class="now-card rv">
+        <div class="nc-head"><span>Currently</span><span class="dot" aria-hidden="true"></span></div>
+        <div class="now-row"><span class="k">Role</span><span class="v">Sr. BI Analyst · AEG / LA Kings</span></div>
+        <div class="now-row"><span class="k">Base</span><span class="v">Los Angeles, CA</span></div>
+        <div class="now-row"><span class="k">Building</span><span class="v">Hesse, an open-source AI video agent</span></div>
+        <div class="now-row"><span class="k">Stack</span><span class="v">Databricks · SQL · Python · Claude Code</span></div>
+        <div class="now-row"><span class="k">Open to</span><span class="v">Analytics engineering &amp; AI-native teams</span></div>
+      </div>
+      <div class="about-txt rv">
+        <h2>Haesung Lee</h2>
+        <p style="margin-top:24px">
+          I've spent the last five-plus years moving between data, product, and community,
+          and I've stopped treating them as separate jobs. The best work I've done sits at
+          the intersection: <strong>a segmentation model that becomes a sold-out night, a
+          sensor array that becomes a coach in your mirror, a feed pipeline that becomes a
+          daily habit for 130 readers.</strong>
+        </p>
+        <p>
+          These days that means bringing AI into the workflow directly: Claude Code, LLM
+          APIs, and shipping small products end to end. I'm most interested in teams building
+          multimodal and foundation models, where the distance between a capability and a
+          community is still being invented.
+        </p>
+        <div class="contact-list">
+          <a href="mailto:haesung.lee.810@gmail.com">
+            <span class="c-k">Email</span><span class="c-v">haesung.lee.810@gmail.com</span>
+          </a>
+          <a href="https://leo-hs.github.io/" target="_blank" rel="noopener">
+            <span class="c-k">Site / GitHub</span><span class="c-v">leo-hs.github.io</span>
+          </a>
+          <a href="https://www.linkedin.com/in/haesung-lee/" target="_blank" rel="noopener">
+            <span class="c-k">LinkedIn</span><span class="c-v">in/haesung-lee</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <span class="mono">© 2026 Haesung Lee</span>
+    <span class="mono">Los Angeles, CA · Built by hand</span>
+  </div>
+</footer>
+
+<script>
+// Nav border on scroll
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10),{passive:true});
+
+// YouTube autoplay nudge: some browsers ignore the autoplay URL param,
+// so re-send playVideo via the IFrame API once the embed is on screen
+const yt=document.getElementById('gru-yt');
+if(yt){
+  const play=()=>{for(let i=0;i<6;i++)setTimeout(()=>{
+    try{yt.contentWindow.postMessage('{"event":"command","func":"playVideo","args":[]}','*')}catch(e){}
+  },600*i)};
+  yt.addEventListener('load',play);
+  new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting){play();o.disconnect()}})},{threshold:.3}).observe(yt);
+}
+
+// Scroll reveal
+const io=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+},{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+/* ============================================================
+   ASCII loop: dolphin dives and jumps on a parabola.
+   112x26 canvas. Layered compositing: two-harmonic waves run
+   on their own phases, sprite clipped below the moving surface.
+   Ramp: . : - = + * # % @  (back dark, belly light)
+   ============================================================ */
+(function(){
+  const el=document.getElementById('ascii');
+  if(!el)return;
+  const W=112,H=26,SURF=18;
+  const R=String.raw;
+  const S=s=>{const a=s.split('\n');if(a[0]==='')a.shift();return a};
+
+  const UP2=S(R`
+                    .=+:
+                   -*@@*
+                  =%@@#.
+                :*@@@%:
+               =%@@@#.
+      .+#=. .:*@@@@+
+       -%@%*+%@@@%-
+        .*@@@@@@#.
+         =%@@@@+
+        -%@@@%-
+       :%@@@#.
+      .#@@@+
+     .*@@%-
+    .+@@#:
+   :*%#+.
+ :*%*-*+.
+-#%=  .=:
+ .:.`);
+  const UP1=S(R`
+                               .:=-.
+                             .=#@@#:
+                           .=#@@@@+
+                         .=#@@@@#:
+              .+#=.    .-*%@@@@+
+               -%@%*: .+%@@@@#:
+                .*@@%*%@@@@@+ -*:
+               .-+%@@@@@@@@+.=#@*.
+             -*%@@@@@@@@@#:  :#@#-
+          .=#@@@@@@@@@@@+     .=:
+        -*%@@@@@@@@@@@#:
+  :+%#=+*%@@@@@@@@@@%=
+   =@@%+#@@@@@@@@@%+.
+       -#%@@@@@@#=.
+        :*@%=+%*:
+          -#%+:.`);
+  const MID=S(R`
+                     .+#*:
+                      =%@@#-
+                       +@@@@%+.
+            ..:-=+*#%@@@@@@@@#+=-:..
+         .:=*#%@@@@@@@@@@@@@@@@@@@%#*+=-:.
+       .-+#%@@@@@@@@@@@@@@@@@@@@@@@@@@@@%#+=:.
+ =%@#+.  -*%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%*=-.
+  +@@%=+:#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%#+=:.
+        :#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@% :+#@@@@@@%#*=-.
+  =%@#=*%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@+.  .:=+*#%%#*+-.
+ :*@@*-  -+#%@@@@@@@@@@@@@@@@@@@@@%#*+=-:.
+                            .-#@@%=.
+                           :*@@#-
+                            =*=.`);
+  const DN1=S(R`
+        :*%#=.
+  :=+:  =@@%+:
+ .+@%*==#%@#-
+  .=#@@@@@@%*=:.    .+#=.
+    .:=+#@@@@@@@@%*=-%@%*.
+         -*%@@@@@@@@@@@@%*:
+           .=#@@@@@@@@@@@@%+.
+             .+%@@@@@@@@@@@@@#-
+               :#@@@@@@@@@@@@@@%=.
+                 =%@@@@@@@@@@@@@@@#=.
+              -#*.:+%@@@@@@@@@@@@@@@%*=:.
+              =@#- .:*@@@@@@@@@@@@@@@@@@%#+-.
+               :=:   -#@@@@@#**#%@@@@@@@@@%#*=-.
+                      .+@@%=.    .:=+*#%%%#*+=:.
+                        :+:`);
+  const DN2=S(R`
+  -#%+.  :*%=.
+   :*%*==#@#-
+     :+%@%+:
+      .*@@#:
+       -%@@%-
+        =%@@@+ .+#=.
+         +@@@@#+%@%*
+          =%@@@@@@#:
+          .*@@@@%-
+           -%@@@#.
+            +@@@%:
+            .#@@@*
+             -%@@%:
+              =%@@*
+               +%@#.
+               .=*+:`);
+  const wOf=s=>Math.max(...s.map(l=>l.length));
+  const POSES=[
+    {u:0.16,s:UP2,w:wOf(UP2)},
+    {u:0.38,s:UP1,w:wOf(UP1)},
+    {u:0.62,s:MID,w:wOf(MID)},
+    {u:0.84,s:DN1,w:wOf(DN1)},
+    {u:1.01,s:DN2,w:wOf(DN2)}
+  ];
+
+  const UW=18, JUMP=46, CYCLE=UW+JUMP;   /* 90ms ticks */
+  const X0=2, X1=58, ARC=16;
+
+  let t=0,pA=0,pB=0,pC=0,timer=null;
+
+  const grid=()=>Array.from({length:H},()=>Array(W).fill(' '));
+
+  /* two-harmonic surface: irregular, alive */
+  const lvl=x=>1.5*Math.sin(x*0.16+pA)+0.8*Math.sin(x*0.37+pA*1.63);
+  const surfY=x=>SURF+Math.round(lvl(x));
+
+  function waves(g){
+    const sh=Math.floor(pB*4);
+    for(let x=0;x<W;x++){
+      const s=lvl(x),y=SURF+Math.round(s);
+      if(s>1.8&&y-1>=0)g[y-1][x]='.';            /* spray above crest */
+      if(y>=0&&y<H)g[y][x]= s>1.5?'*':'~';        /* foam on crests */
+      if(y+1<H)g[y+1][x]=':';                     /* dense sub-surface */
+      if(y+2<H&&((x+sh)%2===0))g[y+2][x]=':';
+      const y2=SURF+4+Math.round(1.1*Math.sin(x*0.12-pB));
+      if(y2<H&&g[y2][x]===' ')g[y2][x]=':';       /* internal wave */
+      for(let d=SURF+6;d<H-1;d++)
+        if(g[d][x]===' '&&(x*7+d*13+sh)%9===0)g[d][x]='.';
+      if((x+Math.floor(pB*3))%5===0)g[H-1][x]='.';
+    }
+  }
+
+  function clouds(g){
+    const put=(rows,y,x)=>{rows.forEach((r,dy)=>{for(let i=0;i<r.length;i++){
+      const ch=r[i];if(ch===' ')continue;g[y+dy][(x+i)%W]=ch;}})};
+    put(['   .:::::-:.','  .:::::::::::.'],1,Math.floor(8+pC)%W);
+    put([' .::::.','.::::::-.'],4,Math.floor(60+pC*0.6)%W);
+    put(['.::.'],2,Math.floor(96+pC*0.8)%W);
+  }
+
+  function blit(g,spr,x,y){
+    for(let r=0;r<spr.length;r++){
+      const line=spr[r];
+      for(let c=0;c<line.length;c++){
+        const ch=line[c];if(ch===' ')continue;
+        const gx=x+c,gy=y+r;
+        if(gx<0||gx>=W||gy<0||gy>=H)continue;
+        if(gy>=surfY(gx))continue;               /* underwater: hidden */
+        g[gy][gx]=ch;
+      }
+    }
+  }
+
+  /* staged splash: tight contact burst, then risen droplets */
+  const ST1=[[-1,'.:*#*:.'],[-2,'.:;:.']];
+  const ST2=[[-1,':=+;+=:'],[-2,'. * ; * .'],[-3,'.    .']];
+  function splash(g,cx,st){
+    st.forEach(([dy,str])=>{
+      const y=SURF+dy;if(y<0||y>=H)return;
+      const off=cx-Math.floor(str.length/2);
+      for(let i=0;i<str.length;i++){
+        const ch=str[i];if(ch===' ')continue;
+        const gx=off+i;if(gx>=0&&gx<W)g[y][gx]=ch;
+      }
+    });
+  }
+
+  function frame(){
+    const g=grid();
+    clouds(g);waves(g);
+    if(t>=UW){
+      const u=(t-UW)/(JUMP-1);
+      const p=POSES.find(p=>u<p.u);
+      const x=Math.round(X0+(X1-X0)*u);
+      const yTop=SURF-Math.round(ARC*4*u*(1-u));
+      blit(g,p.s,x,yTop);
+      if(u<0.05)splash(g,x+Math.round(p.w*0.9),ST1);
+      else if(u<0.12)splash(g,x+Math.round(p.w*0.9),ST2);
+      else if(u>0.95)splash(g,x+Math.round(p.w*0.85),ST2);
+      else if(u>0.88)splash(g,x+Math.round(p.w*0.85),ST1);
+    }
+    el.textContent=g.map(r=>r.join('')).join('\n');
+    pA+=0.22;pB+=0.13;pC+=0.05;
+    t=(t+1)%CYCLE;
+  }
+
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){
+    t=UW+Math.floor(JUMP/2);frame();return;
+  }
+  const start=()=>{if(!timer){timer=setInterval(frame,90)}};
+  const stop=()=>{clearInterval(timer);timer=null};
+  document.addEventListener('visibilitychange',()=>document.hidden?stop():start());
+  start();
+})();
+</script>
 </body>
 </html>
